@@ -17,3 +17,11 @@
 - getMovie.py   爬虫
 - handle.py     处理爬取的数据为mysql load data infile的格式
 - mv_info.sql   爬好的数据
+
+## scada
+
+抓取scada默认密码，形成markdown形式表格
+
+- scada.html    网页信息
+- handle.py     爬取处理html
+- table.md      生成的markdown形式表格

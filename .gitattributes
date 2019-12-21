@@ -1,0 +1,4 @@
+*.csv linguist-language=python
+*.sql linguist-language=python
+*.md linguist-language=python
+*.sh linguist-language=python

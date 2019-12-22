@@ -28,7 +28,7 @@ class Movie:
             'X-Forwarded-For': '%s.%s.%s.%s'%(random.randint(1,255),random.randint(1,255),random.randint(1,255),random.randint(1,255)),
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36'
         }
-        url = 'https://www.xxx.com/v/{}.html'.format(self.id)
+        url = 'https://www.lol5s.com/v/{}.html'.format(self.id)
         try:
             resp = s.get(url, headers=headers, verify=False, timeout=5)
             if resp.status_code == 200:
@@ -61,7 +61,7 @@ class Movie:
             if title:
                 self.title = title[0]
             else:
-                self.title = str(sp.title)
+                self.title = str(sp.title.text)
         except:
             pass
         try:
@@ -76,7 +76,7 @@ class Movie:
         return json.dumps(res)
 
 if __name__ == "__main__":
-    for i in range(2525, 20000):
+    for i in range(18269, 18316):
         print(i)
         movie = Movie(i)
         movie.getCont()

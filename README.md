@@ -22,8 +22,9 @@
 
 爬取电影网站的电影在线观看链接
 
-- getMovie.py   爬虫
-- handle.py     处理爬取的数据为mysql load data infile的格式
+- getMovie_pc.py    爬虫，根据PC端网页编写
+- getMovie_mb.py    爬虫，根据mobile（手机）端网页编写
+- handle.py         处理爬取的数据为mysql load data infile的格式
 
 ## scada
 

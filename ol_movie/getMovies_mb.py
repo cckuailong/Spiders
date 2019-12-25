@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
@@ -10,7 +11,7 @@ import random
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-base_url = "http://my.nxycyyh.com/"
+base_url = "http://my.fastfinance.cn/"
 
 class Movie:
     def __init__(self, id):
@@ -63,13 +64,15 @@ class Movie:
         sp = BeautifulSoup(cont, "lxml")
 
         try:
-            inputs = sp.find("div", "video_list fn-clear").find_all("a")
-            for item in inputs:
-                try:
-                    tmp_url = base_url+item["href"].strip()
-                    self.urls.append({item.text.strip(): self.getUrl(tmp_url)})
-                except Exception as err:
-                    print(err)
+            inputs = sp.find_all("div", "video_list fn-clear")
+            for divs in inputs:
+                tmps = divs.find_all("a")
+                for item in tmps:
+                    try:
+                        tmp_url = base_url+item["href"].strip()
+                        self.urls.append({item.text.strip(): self.getUrl(tmp_url)})
+                    except Exception as err:
+                        continue
         except Exception as err:
             print(err)
         if len(self.urls) == 0:
@@ -95,18 +98,19 @@ class Movie:
 
         return json.dumps(res)
 
-    
+def main(i):
+    print(i)
+    movie = Movie(i)
+    movie.getCont()
+    try:
+        res = movie.parse()
+    except:
+        return
+    with open("movies.csv", "a", encoding="utf8") as f:
+        if len(res)>10:
+            f.write("%s\t%s\n" % (i, res))
+    time.sleep(random.randint(1,2))
 
 if __name__ == "__main__":
-    for i in range(2670, 60000):
-        print(i)
-        movie = Movie(i)
-        movie.getCont()
-        try:
-            res = movie.parse()
-        except:
-            continue
-        with open("movies.csv", "a", encoding="utf8") as f:
-            if len(res)>10:
-                f.write("%s\t%s\n" % (i, res))
-        time.sleep(random.randint(1,5))
+    for i in range(10651, 60000):
+        main(i)
